@@ -1,5 +1,9 @@
-// mutation-types.ts:
-export enum MutationTypes {
-  TOGGLE_STATUS = 'TOGGLE_STATUS',
-  SET_STATUS = 'SET_STATUS',
-}
+import { MutationTypes as ModuleA } from './ModuleA/mutation-types';
+import { MutationTypes as ModuleB } from './ModuleB/mutation-types';
+
+export const ActionTypes = {
+  ModuleA,
+  ModuleB,
+};
+
+export type MutationTypes = typeof ActionTypes;

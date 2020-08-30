@@ -3,6 +3,7 @@ import { MutationTypes } from './mutation-types';
 import { ActionTree, ActionContext } from 'vuex';
 import { State } from './state';
 import { Mutations } from './mutations';
+import axios from 'axios';
 
 type AugmentedActionContext = {
   commit<K extends keyof Mutations>(
@@ -24,6 +25,12 @@ export interface Actions {
 
 export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.TOGGLE_STATUS]({ commit }) {
+    console.log('before');
+    axios
+      .get('https://api.exchangeratesapi.io/latest')
+      .then((resp: any) => console.log(resp))
+      .catch((err: any) => console.log(err));
+    console.log('edvrait pas');
     commit(MutationTypes.TOGGLE_STATUS, null);
   },
 

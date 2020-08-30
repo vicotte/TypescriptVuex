@@ -2,13 +2,13 @@
   <div class="hello">
     <div>
       <h1>Module 1</h1>
-      <p>status : {{ storeStatus.state.status }}</p>
+      <p>status : {{ status }}</p>
       <button @click="clickButton1">click me 1</button>
     </div>
     <div>
       <h1>Module 2</h1>
-      <p>status : {{ storeStatus.state.status }}</p>
-      <button @click="storeStatus.toggleStatus">click me</button>
+      <p>status : {{ status2 }}</p>
+      <button @click="toggleStatus2">click me</button>
     </div>
   </div>
 </template>
@@ -17,15 +17,12 @@
 import { defineComponent } from 'vue';
 import { ActionTypes } from '../store/action-types';
 import { MutationTypes } from '../store/mutation-types';
-import { storeStatus } from '../testStore/store2';
-
 // import { useStore } from '../store'
 
 import useStatus from '../testStore/store';
-import { AxiosPromise } from 'axios';
 
 export default defineComponent({
-  name: 'HelloWorld',
+  name: 'HelloWorld2',
   props: {
     msg: String,
   },
@@ -36,15 +33,15 @@ export default defineComponent({
   },
 
   methods: {
-    clickButton1: async function(): Promise<void> {
-      // this.storeStatus.setStatus({ value: true });
-      console.log('premiere etape');
-      storeStatus.actions.getData();
-      console.log('deuxieme etape');
+    clickButton1: function(): void {
+      this.$store.dispatch(ActionTypes.ModuleA.TOGGLE_STATUS, null);
+      console.log(this.$store.state.moduleB.status);
     },
   },
   setup() {
-    return { storeStatus };
+    const { toggleStatus: toggleStatus2, status: status2 } = useStatus();
+
+    return { toggleStatus2, status2 };
   },
 });
 </script>
